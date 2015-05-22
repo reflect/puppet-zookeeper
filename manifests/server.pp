@@ -72,7 +72,7 @@ class zookeeper::server(
     }
 
     cron { 'zookeeper-cleanup':
-        command => "${cleanup_script} -n ${cleanup_count}",
+        command => "${cleanup_script} -n ${cleanup_count} >/dev/null",
         hour    => 0,
         user    => 'zookeeper',
         require => Service['zookeeper'],
