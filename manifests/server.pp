@@ -50,8 +50,8 @@ class zookeeper::server(
         content => $myid,
     }
     file { "${::zookeeper::data_dir}/myid":
-        ensure  => 'link',
-        target  => '/etc/zookeeper/conf/myid',
+        ensure => 'link',
+        target => '/etc/zookeeper/conf/myid',
     }
 
     service { 'zookeeper':

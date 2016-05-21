@@ -35,8 +35,8 @@ class zookeeper::jmxtrans(
 
     # query for metrics from zookeeper's JVM
     jmxtrans::metrics::jvm { $jmx:
-        outfile              => $outfile,
-        ganglia              => $ganglia,
-        graphite             => $graphite,
+        outfile  => $outfile,
+        ganglia  => $ganglia,
+        graphite => $graphite,
     }
 }
