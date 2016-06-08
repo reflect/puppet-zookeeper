@@ -8,6 +8,9 @@
 #
 # $data_log_dir  - Zookeeper dataLogDir.  Default: undef.
 #
+# $max_client_connections - The maximum number of per-IP client connections.
+#                           Default: 0 (unlimited)
+#
 # $tick_time     - The length of a single tick, which is the basic time unit used by
 #                  ZooKeeper, as measured in milliseconds.  Default: 2000
 #
@@ -44,14 +47,15 @@
 # e.g.  zoo1.domain.org's myid will be '1', zoo2.domain.org's myid will be 2, etc.
 #
 class zookeeper(
-    $hosts         = $::zookeeper::defaults::hosts,
-    $data_dir      = $::zookeeper::defaults::data_dir,
-    $data_log_dir  = $::zookeeper::defaults::data_log_dir,
-    $tick_time     = $::zookeeper::defaults::tick_time,
-    $init_limit    = $::zookeeper::defaults::init_limit,
-    $sync_limit    = $::zookeeper::defaults::sync_limit,
-    $conf_template = $::zookeeper::defaults::conf_template,
-    $version       = $::zookeeper::defaults::version
+    $hosts                  = $::zookeeper::defaults::hosts,
+    $data_dir               = $::zookeeper::defaults::data_dir,
+    $data_log_dir           = $::zookeeper::defaults::data_log_dir,
+    $max_client_connections = $::zookeeper::defaults::max_client_connections,
+    $tick_time              = $::zookeeper::defaults::tick_time,
+    $init_limit             = $::zookeeper::defaults::init_limit,
+    $sync_limit             = $::zookeeper::defaults::sync_limit,
+    $conf_template          = $::zookeeper::defaults::conf_template,
+    $version                = $::zookeeper::defaults::version
 ) inherits zookeeper::defaults
 {
     package { 'zookeeper':

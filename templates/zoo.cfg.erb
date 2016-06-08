@@ -25,6 +25,9 @@ dataDir=<%= data_dir %>
 <%= @data_log_dir ? "dataLogDir=#{data_log_dir}" : '# dataLogDir=/disk2/zookeeper' %>
 
 
+# The maximum number of connections per IP, 0 == unlimited
+maxClientCnxns=<%= @max_client_connections %>
+
 # The number of milliseconds of each tick.
 tickTime=<%= @tick_time %>
 

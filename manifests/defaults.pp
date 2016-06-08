@@ -9,6 +9,7 @@ class zookeeper::defaults {
     $cleanup_count    = 10
     $cleanup_script   = '/usr/share/zookeeper/bin/zkCleanup.sh'
 
+    $max_client_connections = 0
     $tick_time        = 2000
     $init_limit       = 10
     $sync_limit       = 5
