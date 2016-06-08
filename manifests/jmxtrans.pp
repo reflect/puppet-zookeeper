@@ -21,7 +21,9 @@ class zookeeper::jmxtrans(
     $jmx_port       = $zookeeper::defaults::jmx_port,
     $ganglia        = undef,
     $graphite       = undef,
+    $statsd         = undef,
     $outfile        = undef,
+    $group_prefix   = undef,
     $run_interval   = 15,
     $log_level      = 'info',
 ) inherits zookeeper::defaults
@@ -35,8 +37,10 @@ class zookeeper::jmxtrans(
 
     # query for metrics from zookeeper's JVM
     jmxtrans::metrics::jvm { $jmx:
-        outfile  => $outfile,
-        ganglia  => $ganglia,
-        graphite => $graphite,
+        ganglia      => $ganglia,
+        graphite     => $graphite,
+        statsd       => $statsd,
+        outfile      => $outfile,
+        group_prefix => $group_prefix,
     }
 }
