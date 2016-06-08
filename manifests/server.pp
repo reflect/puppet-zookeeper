@@ -60,15 +60,13 @@ class zookeeper::server(
             Package['zookeeperd'],
             File[ $::zookeeper::data_dir],
             File["${::zookeeper::data_dir}/myid"],
-        ],
-        hasrestart => true,
-        hasstatus  => true,
-        subscribe  => [
             File['/etc/default/zookeeper'],
             File['/etc/zookeeper/conf/zoo.cfg'],
             File['/etc/zookeeper/conf/myid'],
             File['/etc/zookeeper/conf/log4j.properties'],
         ],
+        hasrestart => true,
+        hasstatus  => true,
     }
 
     cron { 'zookeeper-cleanup':
