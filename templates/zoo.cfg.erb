@@ -9,7 +9,7 @@
 if @hosts
 # sort hosts by myid and output a server config
 # for each host and myid.  (sort_by returns an array of key,value tuples)
-hosts.sort_by { |name, id| id }.each do |host_id|
+@hosts.sort_by { |name, id| id }.each do |host_id|
 -%>
 server.<%= host_id[1] %>=<%= host_id[0] %>:2182:2183
 <% end -%>
@@ -19,7 +19,7 @@ server.<%= host_id[1] %>=<%= host_id[0] %>:2182:2183
 clientPort=2181
 
 # the directory where the snapshot is stored.
-dataDir=<%= data_dir %>
+dataDir=<%= @data_dir %>
 
 # Place the dataLogDir to a separate physical disc for better performance
 <%= @data_log_dir ? "dataLogDir=#{data_log_dir}" : '# dataLogDir=/disk2/zookeeper' %>

@@ -30,9 +30,11 @@ class zookeeper::jmxtrans(
 {
     $jmx = "${::fqdn}:${jmx_port}"
 
-    class {'::jmxtrans':
-        run_interval => $run_interval,
-        log_level    => $log_level,
+    if !defined(Class['::jmxtrans']) {
+        class {'::jmxtrans':
+            run_interval => $run_interval,
+            log_level    => $log_level,
+        }
     }
 
     # query for metrics from zookeeper's JVM
@@ -42,5 +44,37 @@ class zookeeper::jmxtrans(
         statsd       => $statsd,
         outfile      => $outfile,
         group_prefix => $group_prefix,
+    }
+
+    $zookeeper_objects = [
+        {
+            'name'          => 'org.apache.ZooKeeperService:name0=*,name1=*,name2=*',
+            'resultAlias'   => 'zookeeper',
+            'typeNames'     => ['serverId', 'replicaId', 'leaderOrFollower'],
+            'attrs'         => {
+                'AvgRequestLatency'        => { 'slope' => 'both',      'bucketType' => 'g' },
+                'MinRequestLatency'        => { 'slope' => 'both',      'bucketType' => 'g' },
+                'MaxRequestLatency'        => { 'slope' => 'both',      'bucketType' => 'g' },
+                'MaxClientCnxnsPerHost'    => { 'slope' => 'both',      'bucketType' => 'g' },
+                'NumAliveConnections'      => { 'slope' => 'both',      'bucketType' => 'g' },
+                'OutstandingRequests'      => { 'slope' => 'both',      'bucketType' => 'g' },
+                'PacketsReceived'          => { 'slope' => 'positive',  'bucketType' => 'g' },
+                'PacketsSent'              => { 'slope' => 'positive',  'bucketType' => 'g' },
+                'PendingRevalidationCount' => { 'slope' => 'both',      'bucketType' => 'g' },
+            },
+        },
+    ]
+
+    # Query zookeeper server for relevant jmx metrics.
+    jmxtrans::metrics { "zookeeper-${::hostname}-${jmx_port}":
+        jmx                  => $jmx,
+        outfile              => $outfile,
+        ganglia              => $ganglia,
+        ganglia_group_name   => "${group_prefix}zookeeper",
+        graphite             => $graphite,
+        graphite_root_prefix => "${group_prefix}zookeeper",
+        statsd               => $statsd,
+        statsd_root_prefix   => "${group_prefix}zookeeper",
+        objects              => $zookeeper_objects,
     }
 }
