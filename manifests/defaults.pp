@@ -1,13 +1,14 @@
 # == Class zookeeper::defaults
 # Default zookeeper configs.
 class zookeeper::defaults {
-    $hosts            = { "${::fqdn}" => 1 }
+    $hosts               = { "${::fqdn}" => 1 }
 
-    $data_dir         = '/var/lib/zookeeper'
-    $data_log_dir     = undef
-    $jmx_port         = 9998
-    $cleanup_count    = 10
-    $cleanup_script   = '/usr/share/zookeeper/bin/zkCleanup.sh'
+    $data_dir            = '/var/lib/zookeeper'
+    $data_log_dir        = undef
+    $jmx_port            = 9998
+    $cleanup_script      = '/usr/share/zookeeper/bin/zkCleanup.sh'
+    $cleanup_script_args = '-n 10 > /dev/null'
+    $cleanup_cron_ensure = true
 
     $max_client_connections = 0
     $tick_time        = 2000
