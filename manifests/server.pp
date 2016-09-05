@@ -10,7 +10,7 @@
 #                        Default: /usr/share/zookeeper/bin/zkCleanup.sh
 # $cleanup_script_args - Arguments to pass to the script (or the shell)
 #                        Default: '-n 10 > /dev/null'
-# $cleanup_cron_ensure - If defined it installs a daily cron that runs
+# $cleanup_cron_deploy - If true it installs a daily cron that runs
 #                        the cleanup_script with the provided arguments.
 #                        Default: true
 
@@ -18,7 +18,7 @@ class zookeeper::server(
     $jmx_port            = $::zookeeper::defaults::jmx_port,
     $cleanup_script      = $::zookeeper::defaults::cleanup_script,
     $cleanup_script_args = $::zookeeper::defaults::cleanup_script_args,
-    $cleanup_cron_ensure = $::zookeeper::defaults::cleanup_cron_ensure,
+    $cleanup_cron_deploy = $::zookeeper::defaults::cleanup_cron_deploy,
     $default_template    = $::zookeeper::defaults::default_template,
     $log4j_template      = $::zookeeper::defaults::log4j_template
 )
@@ -71,6 +71,11 @@ class zookeeper::server(
         ],
         hasrestart => true,
         hasstatus  => true,
+    }
+
+    $cleanup_cron_ensure = $cleanup_cron_deploy ? {
+        true    => 'present',
+        default => 'absent',
     }
 
     cron { 'zookeeper-cleanup':

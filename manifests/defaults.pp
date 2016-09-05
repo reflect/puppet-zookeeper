@@ -8,7 +8,7 @@ class zookeeper::defaults {
     $jmx_port            = 9998
     $cleanup_script      = '/usr/share/zookeeper/bin/zkCleanup.sh'
     $cleanup_script_args = '-n 10 > /dev/null'
-    $cleanup_cron_ensure = true
+    $cleanup_cron_deploy = true
 
     $max_client_connections = 0
     $tick_time        = 2000
