@@ -2,6 +2,7 @@
 # Default zookeeper configs.
 class zookeeper::defaults {
     $hosts               = { "${::fqdn}" => 1 }
+    $myid                = "${::fqdn}"
 
     $data_dir            = '/var/lib/zookeeper'
     $data_log_dir        = undef
@@ -9,6 +10,7 @@ class zookeeper::defaults {
     $cleanup_script      = '/usr/share/zookeeper/bin/zkCleanup.sh'
     $cleanup_script_args = '-n 10 > /dev/null'
     $cleanup_cron_deploy = true
+
 
     $max_client_connections = 0
     $tick_time        = 2000

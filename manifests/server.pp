@@ -15,6 +15,7 @@
 #                        Default: true
 
 class zookeeper::server(
+    $myid                = $::zookeeper::defaults::myid,
     $jmx_port            = $::zookeeper::defaults::jmx_port,
     $cleanup_script      = $::zookeeper::defaults::cleanup_script,
     $cleanup_script_args = $::zookeeper::defaults::cleanup_script_args,
