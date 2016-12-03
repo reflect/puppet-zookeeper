@@ -49,8 +49,6 @@ class zookeeper::server(
         mode   => '0755',
     }
 
-    # Get this host's $myid from the $fqdn in the $zookeeper_hosts hash.
-    $myid = $::zookeeper::hosts[$::fqdn]
     file { '/etc/zookeeper/conf/myid':
         content => $myid,
     }
